@@ -41,3 +41,9 @@ if [[ "$service_status" != "active" ]]; then
 	systemctl restart sshd
 	echo "$TIMESTAMP | ACTION: Restarted sshd service" >> "$LOG_FILE"
 fi
+
+# Automatic Reboot If Memory 100%
+if (( $(echo "$memory_used > 99.9" | bc -l) )); then
+    echo "$TIMESTAMP | ALERT: Memory usage critically high! Rebooting..." >> "$LOG_FILE"
+    reboot
+fi
