@@ -8,4 +8,4 @@ sudo firewall-cmd --permanent --add-service=https
 sudo firewall-cmd --reload
 sudo systemctl enable firewalld
 sudo systemctl start firewalld
-
+```
