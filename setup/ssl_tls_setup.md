@@ -1,31 +1,34 @@
 # SSL/TLS Setup
 
-- Create secure directory for private keys:
+## Create secure directory for private keys:
 ```bash
 sudo mkdir -p /etc/ssl/private
+```
 
-- Generate a self-signed SSL certificate:
+## Generate a self-signed SSL certificate:
 ```bash
 sudo openssl req -x509 -nodes -days 365 \
  -newkey rsa:2048 \
  -keyout /etc/ssl/private/nginx-selfsigned.key \
  -out /etc/ssl/certs/nginx-selfsigned.crt
-
-- Generate Diffie-Hellman parameters:
-# openssl - calls the OpenSSL tool to handle operations (certs, keys, encrypt, etc..)
-# dhparam - tells openssl to geenerate Diffie-Hellman parameters
-# -out /path - save generated DH parameters
-# 2048 - key size = 2048 bits, larger # = stronger encryption
- 
+```
+## Generate Diffie-Hellman parameters: 
 ```bash
 sudo openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
+```
+- `openssl` - calls the OpenSSL tool to handle operations (certs, keys, encrypt, etc..)
+- `dhparam` - tells openssl to geenerate Diffie-Hellman parameters
+- `-out /path` - save generated DH parameters
+- `2048` - key size = 2048 bits, larger # = stronger encryption
 
-- NGINX HTTPS and Redirect Configuration
-# Edit NGINX config File
+## NGINX HTTPS and Redirect Configuration
+### Edit NGINX config File
 ```bash
 sudo nano /etc/nginx/nginx.conf
+```
 
-- Add The Following Code and Replace Exisiting
+### Add The Following Code and Replace Exisiting
+```
 # Settings for TLS Self-Healing-Linux-Server
 # Listen on port 443 for HTTPS
 # Use self-signed SSL cert and key
@@ -68,12 +71,15 @@ server {
     return 301 https://$host$request_uri;
 }
 # End settings changes
+```
 
-- Test and Reload NGINX
+## Test and Reload NGINX
 ```bash
 sudo nginx -t
 sudo systemctl reload nginx
+```
 
-- Verify redirect of HTTP -> HTTPS
+## Verify redirect of HTTP -> HTTPS
 ```bash
 curl -I http://your-server-ip
+```
