@@ -1,15 +1,24 @@
 # SSH Hardening
 
-- Disable root login:
+## Disable root login:
+Open the SSH config file:
 ```bash
 sudo nano /etc/ssh/sshd_config
-# Set: PermitRootLogin no
-
-- Enforce SSH Key Authentication:
+```
+Inside the file, set:
+```
+PermitRootLogin no
+```
+## Enforce SSH Key Authentication:
 ```bash
 sudo nano /etc/ssh/sshd_config
-# Set: PasswordAuthentication no
+```
+Set: 
+```
+PasswordAuthentication no
+```
 
-- Restart SSH:
+## Restart SSH:
 ```bash
 sudo systemctl restart sshd
+```
